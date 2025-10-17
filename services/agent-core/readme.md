@@ -71,9 +71,8 @@ confidence = (0.4 × 0.80) + (0.5 × 0.9) + 0.0 = 0.77
 
 # ACCEPTED: confidence ≥ 0.70 AND authoritative exempts recall
 ```
-
+<sub>For more detail on Confidence score please visit [Confidence Score Documentation](ConfidenceScore.md)</sub>
 ---
-
 ## 3. Key Functions
 
 ### Enrichment Pipeline
