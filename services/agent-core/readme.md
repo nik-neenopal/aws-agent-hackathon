@@ -53,7 +53,7 @@ A value is **ACCEPTED** if ALL pass:
 2.  **Confidence ≥ 0.70** - Computed score meets threshold
 3.  **Regex match** - Value format matches expected pattern
 4.  **recall_used > 0** or exception granted
-5.  Exception Granted Condition
+5.  Exception Granted Condition:
        - High confidence (≥0.85)
        - Authoritative source  
        - Model confidence ≥0.9
