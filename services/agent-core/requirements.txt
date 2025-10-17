@@ -1,0 +1,5 @@
+bedrock-agentcore
+pandas
+requests
+boto3
+python-dotenv
