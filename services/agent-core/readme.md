@@ -2,15 +2,14 @@
 
 ## Overview
 
-This enrichment pipeline uses **AWS Bedrock AgentCore** to fill missing CSV data through intelligent web search and LLM extraction. It includes a confidence scoring system to validate extracted values.
+This enrichment pipeline leverages AWS Bedrock AgentCore to intelligently fill missing CSV data through automated web search and LLM-powered extraction. The system incorporates a robust confidence scoring mechanism to ensure data quality and validation of all extracted values.
 
 ---
 
 ## Core Components
 
 ### 1. AgentCore Setup
-1. AgentCore Integration
-The Trick: AgentCore is already integrated in the code. Look for these lines:
+1. AgentCore Integration: AgentCore is already integrated in the code. Look for these lines:
 ```python
 from bedrock_agentcore.runtime import BedrockAgentCoreApp
 
@@ -44,7 +43,7 @@ confidence = (0.4 × model_conf) + (0.5 × base_score) + recall_factor
 |-----------|--------|-------|
 | **Model Confidence** | 40% | LLM's self-assessed confidence (0-1) |
 | **Source Authority** | 50% | 0.9 (authoritative) or 0.6 (non-auth) |
-| **Recall Factor** | 10% | Evidence usage: `min(0.1, recall_used/recall_hits × 0.1)` |
+| **Recall Factor** | 10% | Evidence usage: `min(0.1, (recall_used/recall_hits) × 0.1)` |
 
 ### Acceptance Criteria
 
@@ -53,10 +52,11 @@ A value is **ACCEPTED** if ALL pass:
 1.  **Verifier says YES** - LLM confirms value in evidence
 2.  **Confidence ≥ 0.70** - Computed score meets threshold
 3.  **Regex match** - Value format matches expected pattern
-4.  **Recall > 0** OR exception granted:
-   - High confidence (≥0.85), OR
-   - Authoritative source, OR  
-   - Model confidence ≥0.9
+4.  **recall_used > 0** or exception granted
+5.  Exception Granted Condition
+       - High confidence (≥0.85)
+       - Authoritative source  
+       - Model confidence ≥0.9
 
 ### Example
 
@@ -65,11 +65,14 @@ A value is **ACCEPTED** if ALL pass:
 model_conf = 0.80
 source = "imdb.com"  # authoritative
 recall_used = 0
+recall_hits = 0  # no recall performed
 
 base = 0.9  # authoritative
 confidence = (0.4 × 0.80) + (0.5 × 0.9) + 0.0 = 0.77
 
 # ACCEPTED: confidence ≥ 0.70 AND authoritative exempts recall
+# Note: recall_hits = 0 but exception granted due to authoritative source
+# If recall_hits > 0: Would add validation boost and increase overall confidence
 ```
 <sub>For more detail on Confidence score please visit [Confidence Score Documentation](ConfidenceScore.md)</sub>
 ---
@@ -190,8 +193,8 @@ CONFIDENCE_RECORDS = [
 ```
 
 **Status Types:**
-- `accept`: Normal acceptance (recall > 0)
-- `accept-true`: Accepted with zero recall (exception granted)
+- `accept`: Normal acceptance (recall_used > 0)
+- `accept-true`: Accepted with zero recall_used (exception granted)
 - `fallback_accept`: From row context without web search
 - `reject`: Failed acceptance criteria
 
@@ -201,7 +204,7 @@ CONFIDENCE_RECORDS = [
 
 Values flagged for review when:
 
-1. **accept-true**: High confidence but zero evidence recall
+1. **accept-true**: High confidence but zero evidence recall_used
 2. **fallback_accept**: Extracted from row context only (no web search)
 
 Check these records before production use.
