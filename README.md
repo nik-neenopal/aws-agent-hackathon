@@ -76,7 +76,7 @@ aws-agent-hackathon/
 
 - [Lambda Functions Documentation](./services/lambdas/readme.md)
 - [Agent Core Documentation](./services/agent-core/readme.md)
-- [Frontend Documentation](././frontend/csv-agent-frontend/readme.md)
+- [Frontend Documentation](././frontend/csv-agent-frontend/README.md)
 
 ## Security
 
