@@ -2,7 +2,12 @@
 
 ## Overview
 
-This enrichment pipeline leverages AWS Bedrock AgentCore to intelligently fill missing CSV data through automated web search and LLM-powered extraction. The system incorporates a robust confidence scoring mechanism to ensure data quality and validation of all extracted values.
+This enrichment pipeline leverages AWS Bedrock AgentCore to intelligently fill missing CSV data through automated web search and LLM-powered extraction.
+
+The system incorporates a robust confidence scoring mechanism to ensure data quality and validation of all extracted values.
+By combining multiple data sources and AI-powered analysis, the pipeline automatically identifies gaps in datasets and enriches them with accurate, validated information.
+
+The confidence scoring system evaluates each enrichment based on multiple factors including model certainty, source authority, and recall validation, ensuring only high-quality data enters the production environment.
 
 ---
 
