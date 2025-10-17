@@ -68,7 +68,6 @@ lambda-functions/
 
 **Security:** No AWS credentials exposed to client applications
 
-**Target Bucket:** `enrichment-agent-s3`
 
 ---
 
@@ -97,3 +96,4 @@ lambda-functions/
 **Integration:** Ready for web application consumption
 
 ---
+
