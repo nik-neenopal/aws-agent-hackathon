@@ -65,14 +65,14 @@ A value is **ACCEPTED** if ALL pass:
 model_conf = 0.80
 source = "imdb.com"  # authoritative
 recall_used = 0
-recall_hits = 0  # no recall performed
+recall_hits = 0
 
 base = 0.9  # authoritative
 confidence = (0.4 × 0.80) + (0.5 × 0.9) + 0.0 = 0.77
 
-# ACCEPTED: confidence ≥ 0.70 AND authoritative exempts recall
-# Note: recall_hits = 0 but exception granted due to authoritative source
-# If recall_hits > 0: Would add validation boost and increase overall confidence
+# ACCEPTED: confidence ≥ 0.70 AND authoritative exempts recall_used
+# Note: recall_used = 0 but exception granted due to authoritative source
+
 ```
 <sub>For more detail on Confidence score please visit [Confidence Score Documentation](ConfidenceScore.md)</sub>
 ---
